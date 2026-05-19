@@ -36,13 +36,13 @@ public class MenuAuxiliarVista extends VentanaBase {
         add(crearHeader("Auxiliar Logístico", PRIMARIO), BorderLayout.NORTH);
 
         String[][] opciones = {
-            {"", "Inicio",                "INICIO"},
-            {"", "Ver Espacios",          "ESPACIOS"},
-            {"",  "Ver Incidentes",        "INCIDENTES"},
-            {"", "Registrar Incidente",   "REG_INCIDENTE"},
-            {"", "Órdenes de Servicio",   "ORDENES"},
-            {"", "Crear Orden",           "CREAR_ORDEN"},
-            {"", "Requerimientos",        "REQUERIMIENTOS"},
+            {"🏠", "Inicio",                "INICIO"},
+            {"🏛", "Ver Espacios",          "ESPACIOS"},
+            {"⚠",  "Ver Incidentes",        "INCIDENTES"},
+            {"📝", "Registrar Incidente",   "REG_INCIDENTE"},
+            {"📋", "Órdenes de Servicio",   "ORDENES"},
+            {"➕", "Crear Orden",           "CREAR_ORDEN"},
+            {"🔧", "Requerimientos",        "REQUERIMIENTOS"},
         };
 
         JPanel menu = crearMenuLateral("MENÚ AUXILIAR", opciones, MENU_BG, PRIMARIO);
@@ -77,8 +77,8 @@ public class MenuAuxiliarVista extends VentanaBase {
         modeloEspacios = crearModelo("ID", "Nombre / Nomenclatura", "Capacidad", "Estado", "Tipo");
         JTable tabla = crearTabla(modeloEspacios, PRIMARIO);
 
-        JButton btnRef = botonAccion(" Refrescar", PRIMARIO);
-        JButton btnCambiar = botonAccion(" Cambiar Estado", PRIMARIO);
+        JButton btnRef = botonAccion("🔄 Refrescar", PRIMARIO);
+        JButton btnCambiar = botonAccion("✏ Cambiar Estado", PRIMARIO);
 
         btnRef.addActionListener(e -> cargarEspacios());
         btnCambiar.addActionListener(e -> {
@@ -115,14 +115,13 @@ public class MenuAuxiliarVista extends VentanaBase {
         }
     }
 
-    // ── 2. VER INCIDENTES
-
+    // ── 2. VER INCIDENTES ──────────────────────────────────────
     private JPanel construirVerIncidentes() {
         modeloIncidentes = crearModelo("ID","Descripción","Severidad","Prioridad","Fecha Reporte","Usuario");
         JTable tabla = crearTabla(modeloIncidentes, PRIMARIO);
 
-        JButton btnRef    = botonAccion(" Refrescar", PRIMARIO);
-        JButton btnCerrar = botonAccion(" Cerrar Incidente", PRIMARIO);
+        JButton btnRef    = botonAccion("🔄 Refrescar", PRIMARIO);
+        JButton btnCerrar = botonAccion("✅ Cerrar Incidente", PRIMARIO);
 
         btnRef.addActionListener(e -> cargarIncidentes());
         btnCerrar.addActionListener(e -> {
@@ -204,8 +203,8 @@ public class MenuAuxiliarVista extends VentanaBase {
         modeloOrdenes = crearModelo("ID Orden","ID Auxiliar","Estado");
         JTable tabla = crearTabla(modeloOrdenes, PRIMARIO);
 
-        JButton btnRef  = botonAccion(" Refrescar", PRIMARIO);
-        JButton btnAct  = botonAccion(" Actualizar Estado", PRIMARIO);
+        JButton btnRef  = botonAccion("🔄 Refrescar", PRIMARIO);
+        JButton btnAct  = botonAccion("✏ Actualizar Estado", PRIMARIO);
 
         btnRef.addActionListener(e -> cargarOrdenes());
         btnAct.addActionListener(e -> {
@@ -256,7 +255,7 @@ public class MenuAuxiliarVista extends VentanaBase {
         form.add(etiqueta("Estado inicial:"),gbcEtiqueta(fila)); form.add(cmbEstado,      gbcCampo(fila++));
         form.add(etiqueta("Observación:"),   gbcEtiqueta(fila)); form.add(txtObservacion, gbcCampo(fila++));
 
-        JButton btn = botonAccion("  Crear Orden", PRIMARIO);
+        JButton btn = botonAccion("➕  Crear Orden", PRIMARIO);
         form.add(btn, gbcBoton(fila));
 
         btn.addActionListener(e -> {
@@ -301,8 +300,8 @@ public class MenuAuxiliarVista extends VentanaBase {
         modeloReqs = crearModelo("ID Req","ID Reserva","Sillas","AC","Apoyo Técnico");
         JTable tablaReqs = crearTabla(modeloReqs, PRIMARIO);
 
-        JButton btnGuardar   = botonAccion("  Guardar Requerimiento", PRIMARIO);
-        JButton btnConsultar = botonAccion("  Ver Requerimientos", PRIMARIO);
+        JButton btnGuardar   = botonAccion("💾  Guardar Requerimiento", PRIMARIO);
+        JButton btnConsultar = botonAccion("🔍  Ver Requerimientos", PRIMARIO);
 
         btnGuardar.addActionListener(e -> {
             try {

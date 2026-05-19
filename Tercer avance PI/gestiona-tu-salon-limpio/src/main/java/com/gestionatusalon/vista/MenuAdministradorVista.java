@@ -35,15 +35,15 @@ public class MenuAdministradorVista extends VentanaBase {
         add(crearHeader("Administrador", PRIMARIO), BorderLayout.NORTH);
 
         String[][] opciones = {
-            {"", "Inicio",               "INICIO"},
-            {"", "Usuarios",             "USUARIOS"},
-            {"", "Registrar Usuario",    "REG_USUARIO"},
-            {"", "Espacios Físicos",     "ESPACIOS"},
-            {"", "Crear Espacio",        "CREAR_ESPACIO"},
-            {"", "Todas las Reservas",   "RESERVAS"},
-            {"",  "Incidentes",           "INCIDENTES"},
-            {"", "Órdenes de Servicio",  "ORDENES"},
-            {"", "Reportes y KPIs",      "REPORTES"},
+            {"🏠", "Inicio",               "INICIO"},
+            {"👥", "Usuarios",             "USUARIOS"},
+            {"➕", "Registrar Usuario",    "REG_USUARIO"},
+            {"🏛", "Espacios Físicos",     "ESPACIOS"},
+            {"🆕", "Crear Espacio",        "CREAR_ESPACIO"},
+            {"📅", "Todas las Reservas",   "RESERVAS"},
+            {"⚠",  "Incidentes",           "INCIDENTES"},
+            {"📋", "Órdenes de Servicio",  "ORDENES"},
+            {"📊", "Reportes y KPIs",      "REPORTES"},
         };
 
         JPanel menu = crearMenuLateral("MENÚ ADMINISTRADOR", opciones, MENU_BG, PRIMARIO);
@@ -157,7 +157,7 @@ public class MenuAdministradorVista extends VentanaBase {
         return panelConTitulo("Registrar Nuevo Usuario", wrap, FONDO, PRIMARIO);
     }
 
-    // ── 3. ESPACIOS
+    // ── 3. ESPACIOS ────────────────────────────────────────────
     private JPanel construirEspacios() {
         modeloEspacios = crearModelo("ID","Nombre / Nomenclatura","Capacidad","Estado","Tipo");
         JTable tabla = crearTabla(modeloEspacios, PRIMARIO);
@@ -199,7 +199,7 @@ public class MenuAdministradorVista extends VentanaBase {
         }
     }
 
-    // CREAR ESPACIO
+    // ── CREAR ESPACIO ──────────────────────────────────────────
     private JPanel construirCrearEspacio() {
         JPanel form = panelFormulario(BORDE);
 
@@ -225,13 +225,13 @@ public class MenuAdministradorVista extends VentanaBase {
         form.add(etiqueta("Tipo de espacio:"),      gbcEtiqueta(fila)); form.add(cmbTipo,      gbcCampo(fila++));
 
         // Nota informativa
-        JLabel nota = new JLabel("<html><small style='color:gray'> El espacio quedará en estado <b>Disponible</b> automáticamente.</small></html>");
+        JLabel nota = new JLabel("<html><small style='color:gray'>💡 El espacio quedará en estado <b>Disponible</b> automáticamente.</small></html>");
         nota.setBorder(new EmptyBorder(4, 6, 0, 0));
         GridBagConstraints gNota = gbcEtiqueta(fila++);
         gNota.gridwidth = 2;
         form.add(nota, gNota);
 
-        JButton btn = botonAccion("  Crear Espacio", PRIMARIO);
+        JButton btn = botonAccion("🆕  Crear Espacio", PRIMARIO);
         form.add(btn, gbcBoton(fila));
 
         btn.addActionListener(e -> {
@@ -278,9 +278,9 @@ public class MenuAdministradorVista extends VentanaBase {
         modeloReservas = crearModelo("ID","Usuario","Espacio","Fecha","Hora Inicio","Hora Fin","Estado");
         JTable tabla = crearTabla(modeloReservas, PRIMARIO);
 
-        JButton btnRef     = botonAccion(" Refrescar", PRIMARIO);
-        JButton btnAprobar = botonAccion(" Aprobar", new Color(20, 130, 60));
-        JButton btnCancelar= botonAccion(" Cancelar", new Color(180, 40, 40));
+        JButton btnRef     = botonAccion("🔄 Refrescar", PRIMARIO);
+        JButton btnAprobar = botonAccion("✅ Aprobar", new Color(20, 130, 60));
+        JButton btnCancelar= botonAccion("❌ Cancelar", new Color(180, 40, 40));
 
         btnRef.addActionListener(e -> cargarReservas());
 
@@ -333,8 +333,8 @@ public class MenuAdministradorVista extends VentanaBase {
         modeloIncidentes = crearModelo("ID","Descripción","Severidad","Prioridad","Fecha Reporte","Usuario");
         JTable tabla = crearTabla(modeloIncidentes, PRIMARIO);
 
-        JButton btnRef    = botonAccion(" Refrescar", PRIMARIO);
-        JButton btnCerrar = botonAccion(" Cerrar Incidente", PRIMARIO);
+        JButton btnRef    = botonAccion("🔄 Refrescar", PRIMARIO);
+        JButton btnCerrar = botonAccion("✅ Cerrar Incidente", PRIMARIO);
 
         btnRef.addActionListener(e -> cargarIncidentes());
         btnCerrar.addActionListener(e -> {
@@ -370,8 +370,8 @@ public class MenuAdministradorVista extends VentanaBase {
         modeloOrdenes = crearModelo("ID Orden","ID Auxiliar","Estado");
         JTable tabla = crearTabla(modeloOrdenes, PRIMARIO);
 
-        JButton btnRef = botonAccion(" Refrescar", PRIMARIO);
-        JButton btnAct = botonAccion(" Actualizar Estado", PRIMARIO);
+        JButton btnRef = botonAccion("🔄 Refrescar", PRIMARIO);
+        JButton btnAct = botonAccion("✏ Actualizar Estado", PRIMARIO);
 
         btnRef.addActionListener(e -> cargarOrdenes());
         btnAct.addActionListener(e -> {
@@ -421,7 +421,7 @@ public class MenuAdministradorVista extends VentanaBase {
 
         // Tarjeta 1 - KPI de ocupación
         grid.add(crearTarjetaKPI(
-            "  KPI de Ocupación",
+            "📊  KPI de Ocupación",
             "Porcentaje de espacios con reservas registradas.",
             "Calcular KPI",
             () -> {
@@ -462,7 +462,7 @@ public class MenuAdministradorVista extends VentanaBase {
             BorderFactory.createLineBorder(BORDE),
             new EmptyBorder(14,14,14,14)));
 
-        JLabel lblCardDisp = new JLabel("  Disponibilidad por Fecha");
+        JLabel lblCardDisp = new JLabel("📅  Disponibilidad por Fecha");
         lblCardDisp.setFont(new Font("SansSerif", Font.BOLD, 13));
         lblCardDisp.setForeground(PRIMARIO);
         lblCardDisp.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -501,7 +501,7 @@ public class MenuAdministradorVista extends VentanaBase {
 
         // Tarjeta 4 - Generar reporte
         grid.add(crearTarjetaKPI(
-            "  Generar Reporte",
+            "📄  Generar Reporte",
             "Genera un reporte básico con datos actuales del sistema.",
             "Generar",
             () -> {

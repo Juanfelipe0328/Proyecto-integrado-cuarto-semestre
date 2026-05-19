@@ -36,11 +36,11 @@ public class MenuDirectivoVista extends VentanaBase {
         add(crearHeader("Directivo", PRIMARIO), BorderLayout.NORTH);
 
         String[][] opciones = {
-            {"", "Inicio",              "INICIO"},
-            {"", "KPIs de Ocupación",   "KPIS"},
-            {"", "Consultar Reservas",  "RESERVAS"},
-            {"",  "Ver Incidentes",     "INCIDENTES"},
-            {"", "Generar Reporte",     "REPORTE"},
+            {"🏠", "Inicio",              "INICIO"},
+            {"📊", "KPIs de Ocupación",   "KPIS"},
+            {"📅", "Consultar Reservas",  "RESERVAS"},
+            {"⚠",  "Ver Incidentes",     "INCIDENTES"},
+            {"📄", "Generar Reporte",     "REPORTE"},
         };
 
         JPanel menu = crearMenuLateral("MENÚ DIRECTIVO", opciones, MENU_BG, PRIMARIO);
@@ -82,7 +82,7 @@ public class MenuDirectivoVista extends VentanaBase {
         grid.setOpaque(false);
 
         // KPI 1 — Ocupación global
-        JPanel c1 = crearCard("  Ocupación Global");
+        JPanel c1 = crearCard("📊  Ocupación Global");
         JLabel lblKpi = new JLabel("—");
         lblKpi.setFont(new Font("SansSerif", Font.BOLD, 32));
         lblKpi.setForeground(PRIMARIO);
@@ -98,7 +98,7 @@ public class MenuDirectivoVista extends VentanaBase {
         grid.add(c1);
 
         // KPI 2 — Total reservas
-        JPanel c2 = crearCard("  Total de Reservas");
+        JPanel c2 = crearCard("📅  Total de Reservas");
         JLabel lblTotal = new JLabel("—");
         lblTotal.setFont(new Font("SansSerif", Font.BOLD, 32));
         lblTotal.setForeground(PRIMARIO);
@@ -130,7 +130,7 @@ public class MenuDirectivoVista extends VentanaBase {
         grid.add(c3);
 
         // KPI 4 — Disponibilidad por fecha
-        JPanel c4 = crearCard("  Disponibilidad por Fecha");
+        JPanel c4 = crearCard("🏛  Disponibilidad por Fecha");
         JTextField txtF = new JTextField(LocalDate.now().toString(), 12);
         txtF.setAlignmentX(Component.LEFT_ALIGNMENT);
         JLabel lblDisp = new JLabel("—  espacios libres");
@@ -181,7 +181,7 @@ public class MenuDirectivoVista extends VentanaBase {
         modeloReservas = crearModelo("ID","Usuario","Espacio","Fecha","Hora Ini","Hora Fin","Estado");
         JTable tabla = crearTabla(modeloReservas, PRIMARIO);
 
-        JButton btnRef = botonAccion(" Refrescar", PRIMARIO);
+        JButton btnRef = botonAccion("🔄 Refrescar", PRIMARIO);
         btnRef.addActionListener(e -> cargarReservas());
 
         cargarReservas();
@@ -205,7 +205,7 @@ public class MenuDirectivoVista extends VentanaBase {
         modeloIncidentes = crearModelo("ID","Descripción","Severidad","Prioridad","Fecha Reporte");
         JTable tabla = crearTabla(modeloIncidentes, PRIMARIO);
 
-        JButton btnRef = botonAccion(" Refrescar", PRIMARIO);
+        JButton btnRef = botonAccion("🔄 Refrescar", PRIMARIO);
         btnRef.addActionListener(e -> cargarIncidentes());
 
         cargarIncidentes();

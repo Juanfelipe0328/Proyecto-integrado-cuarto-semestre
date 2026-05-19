@@ -74,7 +74,7 @@ public class LoginVista extends JFrame {
         add(principal);
     }
 
-    // ── PANEL LOGIN
+    // ── PANEL LOGIN ────────────────────────────────────────────
     private JPanel panelLogin() {
         JPanel p = new JPanel(new GridBagLayout());
         p.setBackground(Color.WHITE);
@@ -121,7 +121,7 @@ public class LoginVista extends JFrame {
         return p;
     }
 
-    // ── PANEL REGISTRO
+    // ── PANEL REGISTRO ─────────────────────────────────────────
     private JPanel panelRegistro() {
         JPanel p = new JPanel(new GridBagLayout());
         p.setBackground(Color.WHITE);
@@ -182,7 +182,7 @@ public class LoginVista extends JFrame {
         return p;
     }
 
-    // ── ACCIONES
+    // ── ACCIONES ───────────────────────────────────────────────
     private void accionLogin() {
         String correo = txtCorreo.getText().trim();
         String clave  = new String(txtClave.getPassword()).trim();

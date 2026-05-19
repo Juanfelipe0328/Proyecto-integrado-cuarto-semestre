@@ -32,11 +32,11 @@ public class MenuCoordinadorVista extends VentanaBase {
         add(crearHeader("Coordinador", PRIMARIO), BorderLayout.NORTH);
 
         String[][] opciones = {
-            {"", "Inicio",                "INICIO"},
-            {"", "Todas las Reservas",    "RESERVAS"},
-            {"", "Aprobar / Cancelar",    "GESTIONAR"},
-            {"", "Ver Espacios",          "ESPACIOS"},
-            {"", "Disponibilidad",        "DISPONIBLES"},
+            {"🏠", "Inicio",                "INICIO"},
+            {"📅", "Todas las Reservas",    "RESERVAS"},
+            {"✅", "Aprobar / Cancelar",    "GESTIONAR"},
+            {"🏛", "Ver Espacios",          "ESPACIOS"},
+            {"📆", "Disponibilidad",        "DISPONIBLES"},
         };
 
         JPanel menu = crearMenuLateral("MENÚ COORDINADOR", opciones, MENU_BG, PRIMARIO);
@@ -69,7 +69,7 @@ public class MenuCoordinadorVista extends VentanaBase {
         modeloReservas = crearModelo("ID","Usuario","Espacio","Fecha","Hora Ini","Hora Fin","Estado");
         JTable tabla = crearTabla(modeloReservas, PRIMARIO);
 
-        JButton btnRef = botonAccion(" Refrescar", PRIMARIO);
+        JButton btnRef = botonAccion("🔄 Refrescar", PRIMARIO);
         btnRef.addActionListener(e -> cargarReservas());
 
         cargarReservas();
@@ -95,9 +95,9 @@ public class MenuCoordinadorVista extends VentanaBase {
         modeloGestion = crearModelo("ID","Usuario","Espacio","Fecha","Hora Ini","Hora Fin","Estado");
         JTable tabla = crearTabla(modeloGestion, PRIMARIO);
 
-        JButton btnRef     = botonAccion(" Refrescar",  PRIMARIO);
-        JButton btnAprobar = botonAccion(" Aprobar",    new Color(20, 130, 60));
-        JButton btnCancelar= botonAccion(" Cancelar",   new Color(180, 40, 40));
+        JButton btnRef     = botonAccion("🔄 Refrescar",  PRIMARIO);
+        JButton btnAprobar = botonAccion("✅ Aprobar",    new Color(20, 130, 60));
+        JButton btnCancelar= botonAccion("❌ Cancelar",   new Color(180, 40, 40));
 
         btnRef.addActionListener(e -> cargarReservasGestion());
 
@@ -107,7 +107,7 @@ public class MenuCoordinadorVista extends VentanaBase {
             int id = (int) modeloGestion.getValueAt(fila, 0);
             boolean ok = reservaCtrl.aprobarReserva(id);
             JOptionPane.showMessageDialog(this,
-                ok ? " Reserva aprobada correctamente." : "No se pudo aprobar la reserva.",
+                ok ? "✅ Reserva aprobada correctamente." : "No se pudo aprobar la reserva.",
                 ok ? "Éxito" : "Error",
                 ok ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE);
             cargarReservasGestion();
@@ -145,8 +145,7 @@ public class MenuCoordinadorVista extends VentanaBase {
         }
     }
 
-    // ── 3. VER ESPACIOS
-    
+    // ── 3. VER ESPACIOS ────────────────────────────────────────
     private JPanel construirEspacios() {
         modeloEspacios = crearModelo("ID","Nombre / Nomenclatura","Capacidad","Estado","Tipo");
         JTable tabla = crearTabla(modeloEspacios, PRIMARIO);

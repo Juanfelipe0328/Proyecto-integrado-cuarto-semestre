@@ -49,7 +49,7 @@ public abstract class VentanaBase extends JFrame {
         header.setBackground(colorFondo);
         header.setBorder(new EmptyBorder(11, 20, 11, 20));
 
-        JLabel lblSistema = new JLabel("  Gestiona Tu Salón");
+        JLabel lblSistema = new JLabel("🏫  Gestiona Tu Salón  —  UNIAJC");
         lblSistema.setFont(new Font("SansSerif", Font.BOLD, 16));
         lblSistema.setForeground(Color.WHITE);
 
@@ -76,7 +76,7 @@ public abstract class VentanaBase extends JFrame {
         return header;
     }
 
-    // ── Menú lateral genérico 
+    // ── Menú lateral genérico ──────────────────────────────────
     protected JPanel crearMenuLateral(String titulo, String[][] opciones, Color colorMenu, Color colorHover) {
         JPanel panel = new JPanel();
         panel.setBackground(colorMenu);
@@ -149,12 +149,34 @@ public abstract class VentanaBase extends JFrame {
         tabla.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 12));
         tabla.getTableHeader().setBackground(colorHeader);
         tabla.getTableHeader().setForeground(Color.WHITE);
+        tabla.getTableHeader().setOpaque(true);
         tabla.setGridColor(new Color(220, 220, 220));
         tabla.setShowGrid(true);
+
+        // Forzar que el renderer del header muestre el texto en blanco
+        tabla.getTableHeader().setDefaultRenderer(new javax.swing.table.DefaultTableCellRenderer() {
+            @Override
+            public java.awt.Component getTableCellRendererComponent(
+                    JTable table, Object value, boolean isSelected,
+                    boolean hasFocus, int row, int column) {
+                JLabel lbl = (JLabel) super.getTableCellRendererComponent(
+                        table, value, isSelected, hasFocus, row, column);
+                lbl.setBackground(colorHeader);
+                lbl.setForeground(Color.WHITE);
+                lbl.setFont(new Font("SansSerif", Font.BOLD, 12));
+                lbl.setBorder(BorderFactory.createCompoundBorder(
+                    BorderFactory.createMatteBorder(0, 0, 0, 1, colorHeader.darker()),
+                    BorderFactory.createEmptyBorder(4, 8, 4, 8)
+                ));
+                lbl.setOpaque(true);
+                return lbl;
+            }
+        });
+
         return tabla;
     }
 
-    // ── Helpers de formulario
+    // ── Helpers de formulario ──────────────────────────────────
     protected JLabel etiqueta(String texto) {
         JLabel l = new JLabel(texto);
         l.setFont(new Font("SansSerif", Font.BOLD, 12));

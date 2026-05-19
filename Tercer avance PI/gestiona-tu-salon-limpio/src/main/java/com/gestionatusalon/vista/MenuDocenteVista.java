@@ -41,13 +41,13 @@ public class MenuDocenteVista extends VentanaBase {
         add(crearHeader("Docente", PRIMARIO), BorderLayout.NORTH);
 
         String[][] opciones = {
-            {"", "Inicio",                 "INICIO"},
-            {"", "Ver Espacios",           "ESPACIOS"},
-            {"", "Espacios Disponibles",   "DISPONIBLES"},
-            {"", "Crear Reserva",          "CREAR_RESERVA"},
-            {"", "Mis Reservas",           "MIS_RESERVAS"},
-            {"", "Agregar Requerimiento",  "AGREGAR_REQ"},
-            {"",  "Reportar Incidente",    "INCIDENTE"},
+            {"🏠", "Inicio",                 "INICIO"},
+            {"🏛", "Ver Espacios",           "ESPACIOS"},
+            {"✅", "Espacios Disponibles",   "DISPONIBLES"},
+            {"📅", "Crear Reserva",          "CREAR_RESERVA"},
+            {"📋", "Mis Reservas",           "MIS_RESERVAS"},
+            {"➕", "Agregar Requerimiento",  "AGREGAR_REQ"},
+            {"⚠",  "Reportar Incidente",    "INCIDENTE"},
         };
 
         JPanel menu = crearMenuLateral("MENÚ DOCENTE", opciones, MENU_BG, PRIMARIO);
@@ -81,7 +81,7 @@ public class MenuDocenteVista extends VentanaBase {
         modeloEspacios = crearModelo("ID", "Nombre / Nomenclatura", "Capacidad", "Estado", "Tipo");
         JTable tabla = crearTabla(modeloEspacios, PRIMARIO);
 
-        JButton btnRef = botonAccion(" Refrescar", PRIMARIO);
+        JButton btnRef = botonAccion("🔄 Refrescar", PRIMARIO);
         btnRef.addActionListener(e -> cargarEspacios());
 
         JPanel norte = new JPanel(new BorderLayout());
@@ -175,7 +175,7 @@ public class MenuDocenteVista extends VentanaBase {
             fila++;
         }
 
-        JButton btn = botonAccion("  Crear Reserva", PRIMARIO);
+        JButton btn = botonAccion("📅  Crear Reserva", PRIMARIO);
         form.add(btn, gbcBoton(fila));
 
         btn.addActionListener(e -> {
@@ -196,7 +196,7 @@ public class MenuDocenteVista extends VentanaBase {
 
                 if (ok) {
                     JOptionPane.showMessageDialog(this,
-                        " Reserva creada. Estado: Pendiente de aprobación.",
+                        "✅ Reserva creada. Estado: Pendiente de aprobación.",
                         "Éxito", JOptionPane.INFORMATION_MESSAGE);
                     txtIdEspacio.setText(""); txtObservacion.setText(""); txtBloques.setText("1");
                 } else {
@@ -222,8 +222,8 @@ public class MenuDocenteVista extends VentanaBase {
         modeloMisReservas = crearModelo("ID", "Espacio", "Fecha", "Hora Inicio", "Hora Fin", "Estado");
         JTable tabla = crearTabla(modeloMisReservas, PRIMARIO);
 
-        JButton btnRef = botonAccion(" Refrescar", PRIMARIO);
-        JButton btnCan = botonAccion(" Cancelar", new Color(180, 40, 40));
+        JButton btnRef = botonAccion("🔄 Refrescar", PRIMARIO);
+        JButton btnCan = botonAccion("❌ Cancelar", new Color(180, 40, 40));
 
         btnRef.addActionListener(e -> cargarMisReservas());
         btnCan.addActionListener(e -> {
@@ -288,8 +288,8 @@ public class MenuDocenteVista extends VentanaBase {
         modeloReqs = crearModelo("ID Req","ID Reserva","Sillas","AC","Apoyo Técnico");
         JTable tablaReqs = crearTabla(modeloReqs, PRIMARIO);
 
-        JButton btnGuardar   = botonAccion("  Guardar Requerimiento", PRIMARIO);
-        JButton btnConsultar = botonAccion("  Ver Requerimientos", PRIMARIO);
+        JButton btnGuardar   = botonAccion("➕  Guardar Requerimiento", PRIMARIO);
+        JButton btnConsultar = botonAccion("🔍  Ver Requerimientos", PRIMARIO);
 
         btnGuardar.addActionListener(e -> {
             try {
