@@ -45,6 +45,32 @@ public class RequerimientoLogisticoDAO {
         }
     }
 
+    public List<RequerimientoLogistico> listarTodos() {
+        List<RequerimientoLogistico> lista = new ArrayList<>();
+        String sql = """
+                SELECT id_detalle, id_reserva, cantidad_solicitada, configuracion_especial
+                FROM Detalle_Requerimiento
+                ORDER BY id_reserva, id_detalle
+                """;
+        try (Connection conexion = ConexionBD.obtenerConexion();
+             PreparedStatement ps = conexion.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                RequerimientoLogistico req = new RequerimientoLogistico();
+                req.setIdReq(rs.getInt("id_detalle"));
+                req.setIdReserva(rs.getInt("id_reserva"));
+                req.setSillasAdicionales(rs.getInt("cantidad_solicitada"));
+                String config = rs.getString("configuracion_especial");
+                req.setConfiguracionAC(extraerValorAC(config));
+                req.setRequiereApoyoTecnico(config != null && config.toLowerCase().contains("apoyotecnico: true"));
+                lista.add(req);
+            }
+        } catch (Exception e) {
+            System.out.println("Error al listar todos los requerimientos: " + e.getMessage());
+        }
+        return lista;
+    }
+
     public List<RequerimientoLogistico> listarPorReserva(int idReserva) {
         List<RequerimientoLogistico> lista = new ArrayList<>();
 

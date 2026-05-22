@@ -30,6 +30,10 @@ public class LogisticaControlador {
         return requerimientoDAO.registrarRequerimiento(req, idCategoria);
     }
 
+    public List<RequerimientoLogistico> listarTodosRequerimientos() {
+        return requerimientoDAO.listarTodos();
+    }
+
     public List<RequerimientoLogistico> listarRequerimientosPorReserva(int idReserva) {
         return requerimientoDAO.listarPorReserva(idReserva);
     }

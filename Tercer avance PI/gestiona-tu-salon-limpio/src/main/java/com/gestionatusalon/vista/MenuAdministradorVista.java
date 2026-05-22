@@ -43,14 +43,13 @@ public class MenuAdministradorVista extends VentanaBase {
             {"📅", "Todas las Reservas",   "RESERVAS"},
             {"⚠",  "Incidentes",           "INCIDENTES"},
             {"📋", "Órdenes de Servicio",  "ORDENES"},
-            {"📊", "Reportes y KPIs",      "REPORTES"},
         };
 
         JPanel menu = crearMenuLateral("MENÚ ADMINISTRADOR", opciones, MENU_BG, PRIMARIO);
 
         JPanel[] paneles = {
             panelBienvenida("⚙",
-                "Control total del sistema: usuarios, espacios, reservas, incidentes y reportes.", PRIMARIO, FONDO),
+                "Control total del sistema: usuarios, espacios, reservas, incidentes y órdenes.", PRIMARIO, FONDO),
             construirUsuarios(),
             construirRegistrarUsuario(),
             construirEspacios(),
@@ -58,11 +57,10 @@ public class MenuAdministradorVista extends VentanaBase {
             construirReservas(),
             construirIncidentes(),
             construirOrdenes(),
-            construirReportes(),
         };
 
         construirLayout(menu,
-            new String[]{"INICIO","USUARIOS","REG_USUARIO","ESPACIOS","CREAR_ESPACIO","RESERVAS","INCIDENTES","ORDENES","REPORTES"},
+            new String[]{"INICIO","USUARIOS","REG_USUARIO","ESPACIOS","CREAR_ESPACIO","RESERVAS","INCIDENTES","ORDENES"},
             paneles);
     }
 
@@ -273,48 +271,25 @@ public class MenuAdministradorVista extends VentanaBase {
         return panelConTitulo("Crear Nuevo Espacio Físico", wrap, FONDO, PRIMARIO);
     }
 
-    // ── 4. TODAS LAS RESERVAS ──────────────────────────────────
+    // ── 4. TODAS LAS RESERVAS (solo lectura) ───────────────────
     private JPanel construirReservas() {
         modeloReservas = crearModelo("ID","Usuario","Espacio","Fecha","Hora Inicio","Hora Fin","Estado");
         JTable tabla = crearTabla(modeloReservas, PRIMARIO);
 
-        JButton btnRef     = botonAccion("🔄 Refrescar", PRIMARIO);
-        JButton btnAprobar = botonAccion("✅ Aprobar", new Color(20, 130, 60));
-        JButton btnCancelar= botonAccion("❌ Cancelar", new Color(180, 40, 40));
-
+        JButton btnRef = botonAccion("🔄 Refrescar", PRIMARIO);
         btnRef.addActionListener(e -> cargarReservas());
-
-        btnAprobar.addActionListener(e -> {
-            int fila = tabla.getSelectedRow();
-            if (fila < 0) { aviso("Seleccione una reserva."); return; }
-            int id = (int) modeloReservas.getValueAt(fila, 0);
-            boolean ok = reservaCtrl.aprobarReserva(id);
-            JOptionPane.showMessageDialog(this,
-                ok ? "Reserva aprobada." : "No se pudo aprobar.",
-                ok ? "Éxito" : "Error",
-                ok ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE);
-            cargarReservas();
-        });
-
-        btnCancelar.addActionListener(e -> {
-            int fila = tabla.getSelectedRow();
-            if (fila < 0) { aviso("Seleccione una reserva."); return; }
-            int id = (int) modeloReservas.getValueAt(fila, 0);
-            String motivo = JOptionPane.showInputDialog(this, "Motivo de cancelación:");
-            if (motivo != null && !motivo.isBlank()) {
-                boolean ok = reservaCtrl.cancelarReserva(id, motivo);
-                JOptionPane.showMessageDialog(this,
-                    ok ? "Reserva cancelada." : "No se pudo cancelar.",
-                    ok ? "Éxito" : "Error",
-                    ok ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE);
-                cargarReservas();
-            }
-        });
-
         cargarReservas();
-        return panelConTitulo("Todas las Reservas del Sistema",
-            envolverNorteSur(botonesPanel(btnRef, btnAprobar, btnCancelar), new JScrollPane(tabla)),
-            FONDO, PRIMARIO);
+
+        JPanel info = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 4));
+        info.setOpaque(false);
+        info.add(btnRef);
+        JLabel lblInfo = new JLabel("Vista de consulta — La aprobación y cancelación de reservas corresponde al Coordinador.");
+        lblInfo.setFont(new Font("SansSerif", Font.ITALIC, 11));
+        lblInfo.setForeground(Color.GRAY);
+        info.add(lblInfo);
+
+        return panelConTitulo("Todas las Reservas del Sistema (Solo Lectura)",
+            envolverNorteSur(info, new JScrollPane(tabla)), FONDO, PRIMARIO);
     }
 
     private void cargarReservas() {
@@ -328,30 +303,25 @@ public class MenuAdministradorVista extends VentanaBase {
         }
     }
 
-    // ── 5. INCIDENTES ──────────────────────────────────────────
+    // ── 5. INCIDENTES (solo lectura) ───────────────────────────
     private JPanel construirIncidentes() {
         modeloIncidentes = crearModelo("ID","Descripción","Severidad","Prioridad","Fecha Reporte","Usuario");
         JTable tabla = crearTabla(modeloIncidentes, PRIMARIO);
 
-        JButton btnRef    = botonAccion("🔄 Refrescar", PRIMARIO);
-        JButton btnCerrar = botonAccion("✅ Cerrar Incidente", PRIMARIO);
-
+        JButton btnRef = botonAccion("🔄 Refrescar", PRIMARIO);
         btnRef.addActionListener(e -> cargarIncidentes());
-        btnCerrar.addActionListener(e -> {
-            int fila = tabla.getSelectedRow();
-            if (fila < 0) { aviso("Seleccione un incidente."); return; }
-            int id = (int) modeloIncidentes.getValueAt(fila, 0);
-            boolean ok = incidenteCtrl.cerrarIncidente(id);
-            JOptionPane.showMessageDialog(this,
-                ok ? "Incidente cerrado." : "No se pudo cerrar.",
-                ok ? "Éxito" : "Error",
-                ok ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE);
-            cargarIncidentes();
-        });
-
         cargarIncidentes();
-        return panelConTitulo("Incidentes Reportados",
-            envolverNorteSur(botonesPanel(btnRef, btnCerrar), new JScrollPane(tabla)), FONDO, PRIMARIO);
+
+        JPanel info = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 4));
+        info.setOpaque(false);
+        info.add(btnRef);
+        JLabel lblInfo = new JLabel("Vista de consulta — El cierre de incidentes corresponde al Auxiliar Logístico.");
+        lblInfo.setFont(new Font("SansSerif", Font.ITALIC, 11));
+        lblInfo.setForeground(Color.GRAY);
+        info.add(lblInfo);
+
+        return panelConTitulo("Incidentes Reportados (Solo Lectura)",
+            envolverNorteSur(info, new JScrollPane(tabla)), FONDO, PRIMARIO);
     }
 
     private void cargarIncidentes() {
