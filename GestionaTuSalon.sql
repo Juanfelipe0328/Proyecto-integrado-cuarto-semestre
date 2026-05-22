@@ -1,16 +1,12 @@
--- ============================================================
---  GESTIONA TU SALÓN - UNIAJC
---  Script completo: estructura + datos de demostración
---  Ejecutar completo en MySQL Workbench
--- ============================================================
+
+--  GESTIONA TU SALÓN
 
 DROP DATABASE IF EXISTS gestiona_tu_salon;
 CREATE DATABASE gestiona_tu_salon CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE gestiona_tu_salon;
 
--- ============================================================
+
 -- SECCIÓN 1: SEGURIDAD Y ESTRUCTURA INSTITUCIONAL
--- ============================================================
 
 CREATE TABLE Rol (
     id_rol       INT AUTO_INCREMENT PRIMARY KEY,
@@ -51,9 +47,7 @@ CREATE TABLE Usuario (
         ON UPDATE CASCADE ON DELETE SET NULL
 );
 
--- ============================================================
 -- SECCIÓN 2: INFRAESTRUCTURA INSTITUCIONAL
--- ============================================================
 
 CREATE TABLE Sede (
     id_sede      INT AUTO_INCREMENT PRIMARY KEY,
@@ -86,9 +80,7 @@ CREATE TABLE Espacio (
         ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
--- ============================================================
 -- SECCIÓN 3: BLOQUES HORARIOS
--- ============================================================
 
 CREATE TABLE Bloque_Horario (
     id_bloque     INT AUTO_INCREMENT PRIMARY KEY,
@@ -99,9 +91,7 @@ CREATE TABLE Bloque_Horario (
     CONSTRAINT chk_bloque_valido CHECK (hora_inicio < hora_fin)
 );
 
--- ============================================================
 -- SECCIÓN 4: CALENDARIO DE RESTRICCIONES
--- ============================================================
 
 CREATE TABLE Restriccion_Calendario (
     id_restriccion         INT AUTO_INCREMENT PRIMARY KEY,
@@ -116,9 +106,7 @@ CREATE TABLE Restriccion_Calendario (
         ON UPDATE CASCADE ON DELETE SET NULL
 );
 
--- ============================================================
 -- SECCIÓN 5: RESERVAS
--- ============================================================
 
 CREATE TABLE Reserva (
     id_reserva        INT AUTO_INCREMENT PRIMARY KEY,
@@ -156,9 +144,7 @@ CREATE TABLE Reserva_Bloque (
 CREATE INDEX idx_reserva_bloque_bloque
     ON Reserva_Bloque (id_bloque);
 
--- ============================================================
 -- SECCIÓN 6: INVENTARIO TECNOLÓGICO
--- ============================================================
 
 CREATE TABLE Categoria_Equipo (
     id_categoria     INT AUTO_INCREMENT PRIMARY KEY,
@@ -196,9 +182,7 @@ CREATE TABLE Espacio_Equipamiento (
         ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
--- ============================================================
 -- SECCIÓN 7: REQUERIMIENTOS LOGÍSTICOS
--- ============================================================
 
 CREATE TABLE Detalle_Requerimiento (
     id_detalle           INT AUTO_INCREMENT PRIMARY KEY,
@@ -229,9 +213,7 @@ CREATE TABLE Reserva_Equipo (
         ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
--- ============================================================
 -- SECCIÓN 8: ÓRDENES DE SERVICIO
--- ============================================================
 
 CREATE TABLE Orden_Servicio (
     id_orden         INT AUTO_INCREMENT PRIMARY KEY,
@@ -250,9 +232,7 @@ CREATE TABLE Orden_Servicio (
         ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
--- ============================================================
--- SECCIÓN 9: INCIDENTES, ENCUESTAS Y NOTIFICACIONES
--- ============================================================
+-- SECCIÓN 9: INCIDENTES, ENCUESTAS Y NOTIFICACIONES-- ============================================================
 
 CREATE TABLE Incidente (
     id_incidente     INT AUTO_INCREMENT PRIMARY KEY,
@@ -301,9 +281,7 @@ CREATE TABLE Notificacion (
         ON UPDATE CASCADE ON DELETE CASCADE
 );
 
--- ============================================================
 -- SECCIÓN 10: TRIGGERS DE VALIDACIÓN
--- ============================================================
 
 DELIMITER $$
 
@@ -410,9 +388,7 @@ END$$
 
 DELIMITER ;
 
--- ============================================================
 -- SECCIÓN 11: DATOS BASE DEL SISTEMA
--- ============================================================
 
 -- Roles del sistema
 INSERT INTO Rol (nombre_rol, descripcion) VALUES
@@ -448,9 +424,7 @@ INSERT INTO Categoria_Equipo (nombre_categoria, descripcion) VALUES
 ('Sonido',   'Parlantes o sistema de sonido'),
 ('Pantalla', 'Pantalla o monitor adicional');
 
--- ============================================================
 -- SECCIÓN 12: DATOS DE DEMOSTRACIÓN
--- ============================================================
 
 -- Facultad y programa
 INSERT INTO Facultad (nombre_facultad, descripcion) VALUES
@@ -544,9 +518,7 @@ INSERT INTO Orden_Servicio (id_reserva, id_auxiliar, estado_orden, observacion) 
 (2, 3, 'En proceso', 'Preparar equipos de laboratorio para clase'),
 (4, 3, 'Pendiente',  'Preparar auditorio para evento de grado');
 
--- ============================================================
 -- VERIFICACIÓN FINAL
--- ============================================================
 SELECT 'Roles'               AS Tabla, COUNT(*) AS Registros FROM Rol
 UNION ALL SELECT 'Facultades',          COUNT(*) FROM Facultad
 UNION ALL SELECT 'Programas',           COUNT(*) FROM Programa
