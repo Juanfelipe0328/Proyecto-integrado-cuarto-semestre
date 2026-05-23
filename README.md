@@ -4,10 +4,9 @@
 
 ## Eduar Andres Renteria Balverde
 ## Juan Felipe Bustamante Caicedo
-## Angela Perdomo Velez (Solo en Base de Datos 2)
+## Angela Perdomo Velez
 
 ## Grupo 411
 
-## Notas. 
+## Entrega del tercer avance 
 
-Continuamos usando la misma base de datos.
